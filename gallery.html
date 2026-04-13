@@ -250,7 +250,7 @@
             allGalleryItem.forEach((galleryItem, index) => {
   galleryItem.addEventListener('click', () => {
     imgModalDiv.style.display = "block";
-    imgIndex = parseInt(galleryItem.dataset.index);
+    imgIndex = index + 1; // потому что нумерация с 1 (gallery-1.jpg)
     showImageContent(imgIndex);
   });
 });
