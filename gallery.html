@@ -66,10 +66,10 @@
         <div id = "gallery" class = "py-4">
             <div class = "container">
                 <div class = "gallery-row">
-                    <div class = "gallery-item shadow">
-                        <img src = "gallery-1.jpg" alt = "gallery img">
+                    <div class = "gallery-item shadow" data-index="1">
+                        <img src = "images/gallery-1.jpg" alt = "gallery img">
                     </div>
-                        <div class = "gallery-item shadow">
+                        <div class = "gallery-item shadow" data-index="2">
                         <img src = "images/gallery-2.jpg" alt = "gallery img">
                     </div>
                         <div class = "gallery-item shadow">
@@ -247,14 +247,13 @@
             const prevBtn = document.getElementById('prev-btn');
             let imgIndex = 0;
 
-            allGalleryItem.forEach((galleryItem) => {
-                galleryItem.addEventListener('click', () => {
-                    imgModalDiv.style.display = "block";
-                    let imgSrc = galleryItem.querySelector('img').src;
-                    imgIndex = parseInt(imgSrc.split("-")[1].substring(0, 1));
-                    showImageContent(imgIndex);
-                })
-            });
+            allGalleryItem.forEach((galleryItem, index) => {
+  galleryItem.addEventListener('click', () => {
+    imgModalDiv.style.display = "block";
+    imgIndex = parseInt(galleryItem.dataset.index);
+    showImageContent(imgIndex);
+  });
+});
 
             // next click
             nextBtn.addEventListener('click', () => {
