@@ -1,0 +1,10 @@
+AddType video/mp4 .mp4
+AddType video/webm .webm
+AddType video/ogg .ogv
+AddType video/mp4 .m4v
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(mp4|webm|ogv|m4v)$">
+        Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
+</IfModule>

@@ -1,24 +1,76 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>33 зуб</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- font awesome cdn -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <!-- fonts -->
-        <link rel = "stylesheet" href = "font/fonts.css">
-        <!-- normalize css -->
-        <link rel = "stylesheet" href = "css/normalize.css">
-        <!-- custom css -->
-        <link rel = "stylesheet" href = "css/utility.css">
-        <link rel = "stylesheet" href = "css/style.css">
-        <link rel = "stylesheet" href = "css/responsive.css">
-    </head>
-    <body>
-        <!-- navbar  -->
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>О нас — 33 зуб</title>
+            <meta name="description" content="История и ценности стоматологической клиники «33 зуб» в Владимире. Современное оборудование и вежливый персонал.">
+            <!-- imask.js (input mask) -->
+            <script src="https://unpkg.com/imask"></script>
+            <!-- font awesome cdn -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <!-- fonts -->
+            <link rel="stylesheet" href="font/fonts.css">
+            <!-- normalize css -->
+            <link rel="stylesheet" href="css/normalize.css">
+            <!-- custom css -->
+            <link rel="stylesheet" href="css/utility.css">
+            <link rel="stylesheet" href="css/style.css">
+            <link rel="stylesheet" href="css/responsive.css">
+        </head>
+<body lang="ru">
+        <!-- модальное окно записи на приём -->
+        <div id="appointment-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div class="modal-content">
+                <button type="button" id="modal-close" class="modal-close" aria-label="Закрыть окно">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="modal-header">
+                    <h2 id="modal-title">Записаться на приём</h2>
+                    <p>Заполните форму и мы свяжемся с вами для подтверждения</p>
+                </div>
+                <form id="appointmentForm" class="modal-form" novalidate>
+                    <div class="form-group">
+                        <label for="appointment-name">Ваше имя <span class="required">*</span></label>
+                        <input type="text" id="appointment-name" name="name" class="form-control" placeholder="Иванов Иван Иванович" required>
+                        <span class="form-error" id="error-name"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-phone">Телефон <span class="required">*</span></label>
+                        <input type="tel" id="appointment-phone" name="phone" class="form-control imask-phone" placeholder="+7 (___) ___-__-__" required>
+                        <span class="form-error" id="error-phone"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-email">Email <span class="required">*</span></label>
+                        <input type="email" id="appointment-email" name="email" class="form-control" placeholder="введите почту" required>
+                        <span class="form-error" id="error-email"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-service">Выберите услугу <span class="required">*</span></label>
+                        <select id="appointment-service" name="service" class="form-control form-select" required>
+                            <option value="">— Выберите услугу —</option>
+                        </select>
+                        <span class="form-error" id="error-service"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-message">Сообщение</label>
+                        <textarea id="appointment-message" name="message" class="form-control" rows="3" placeholder="Опишите вашу проблему..."></textarea>
+                    </div>
+                    <div class="form-group form-consent">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="appointment-consent" name="consent" class="form-checkbox" required>
+                            <span>Я даю согласие на <a href="privacy.html" target="_blank" rel="noopener noreferrer">обработку персональных данных</a></span>
+                        </label>
+                        <span class="form-error" id="error-consent"></span>
+                    </div>
+                    <button type="submit" class="btn btn-appointment" id="submitAppointment">Отправить заявку</button>
+                </form>
+            </div>
+        </div>
+        <!-- конец модального окна записи -->
+
+        <!-- navbar -->
                 <nav class = "navbar">
             <div class = "container flex">
                 <a href = "index.html" class = "site-brand">
@@ -94,28 +146,28 @@
 
                 <div class = "facts-row">
                     <div class = "facts-item">
-                        <img src="teeth hand.png"></img>
+                        <img src="teeth hand.png" alt="Зубы">
                         <div class = "facts-info">
                             <p class = "text">более 500 людей доверяют</p>
                         </div>
                     </div>
 
                     <div class = "facts-item">
-                        <img src = "lips.png"></img>
+                        <img src = "lips.png" alt="Губы">
                         <div class = "facts-info">
                             <p class = "text">особый уход от специалистов</p>
                         </div>
                     </div>
 
                     <div class = "facts-item">
-                        <img src = "dental.png"></img>
+                        <img src = "dental.png" alt="Стоматология">
                         <div class = "facts-info">
                             <p class = "text">запись проводится быстро</p>
                         </div>
                     </div>
 
                     <div class = "facts-item">
-                        <img src = "tooth.png"></img>
+                        <img src = "tooth.png" alt="Зуб">
                         <div class = "facts-info">
                             <p class = "text">защита в приоритете</p>
                         </div>
@@ -127,72 +179,86 @@
         
 
         <!-- footer -->
-        <footer class = "py-4">
-            <div class = "container footer-row">
-                <div class = "footer-item">
-                    <a href = "index.html" class = "site-brand">
+        <footer class="py-4">
+            <div class="container footer-row">
+
+                <!-- Блок 1: бренд -->
+                <div class="footer-item">
+                    <a href="index.html" class="site-brand">
                         33<span>зуб</span>
                     </a>
-                    <p class = "text">ООО «33зуб» — частная стоматологическая клиника с современным оборудованием, дружелюбной командой и индивидуальным подходом. Мы помогаем сохранить здоровье зубов и вернуть уверенность в улыбке — без боли, страха и навязчивых продаж.</p>
+                    <p class="text">ООО «33зуб» — частная стоматологическая клиника с современным оборудованием, дружелюбной командой и индивидуальным подходом.</p>
                 </div>
 
-                <div class = "footer-item">
-                    <h2>Подпишитесь на нас: </h2>
-                    <ul class = "social-links">
-                        <li>
-                            <a href = "#">
-                                <i class = "fab fa-facebook-f"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href = "#">
-                                <i class = "fab fa-twitter"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href = "#">
-                                <i class = "fab fa-pinterest"></i>
-                            </a>
-                        </li>
-                    </ul>
+                <!-- Блок 2: график работы -->
+                <div class="footer-item footer-item--working-hours">
+                    <h3>График работы</h3>
+                    <p class="text"><i class="far fa-clock" aria-hidden="true"></i> Пн–Сб с 9:00 до 16:00, Вс: выходной</p>
+                    <p class="footer-phone-note">Подробная информация по телефону:</p>
+                    <p class="footer-phone-value"><a href="tel:+74923337100">+7 (4922) 33-71-00</a></p>
+                    <button type="button" class="btn btn-footer-appointment" id="openAppointmentModalFooter">Записаться</button>
                 </div>
-
-                <div class = "footer-item">
-                    <h2>Популярные услуги:</h2>
-                    <ul>
-                        <li><a href = "#">Пломбирование</a></li>
-                        <li><a href = "#">Рестоврация</a></li>
-                        <li><a href = "#">Протезирование</a></li>
-                        <li><a href = "#">Чистка </a></li>
-                        <li><a href = "#">Осмотр</a></li>
-                    </ul>
-                </div>
-
-                <div class = "subscribe-form footer-item">
-                    <h2>Подпишитесь на рассылку!</h2>
-                    <form class = "flex">
-                        <input type = "email" placeholder="Enter email address" class = "form-control" id="emailField">
-                        <input type = "submit" class = "btn" value = "Подписаться" onclick="checkEmail()">
+                <!-- Блок 3: подписка -->
+                <div class="subscribe-form footer-item">
+                    <h3>Подпишитесь на рассылку</h3>
+                    <form class="flex" id="newsletterFormFooter">
+                        <input type="email" placeholder="Введите email" class="form-control" id="emailField" aria-label="Email для подписки">
+                        <input type="submit" class="btn" value="Подписаться">
                     </form>
+                    <div id="newsletter-success" class="newsletter-msg newsletter-msg--success"></div>
+                    <div id="newsletter-error" class="newsletter-msg newsletter-msg--error"></div>
+                    <div class="consent-form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="newsletter-consent" class="form-checkbox" required>
+                            <span>Я даю согласие на <a href="privacy.html" target="_blank" rel="noopener noreferrer">обработку персональных данных</a></span>
+                        </label>
+                    </div>
+                </div>
+                <!-- Блок 4: администратор -->
+                <div class="footer-item footer-admin-link">
+                    <h3>Администратор</h3>
+                    <a href="admin/login.php" class="admin-login-link" aria-label="Вход в панель администратора">
+                        <i class="fas fa-user-shield" aria-hidden="true"></i> Вход в панель администратора
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <div class="container">
+                    <p class="text">&copy; <span id="footer-year"></span> ООО «33зуб». Все права защищены.</p>
                 </div>
             </div>
         </footer>
         <!-- end of footer -->
 
+        <!-- всплывающее уведомление о cookie -->
+        <div id="cookie-banner" class="cookie-banner collapsed" role="region" aria-label="Уведомление об использовании cookies">
+            <div class="cookie-banner__header">
+                <strong>Сайт использует cookie</strong>
+                <button type="button" id="cookie-toggle" class="btn btn-cookie-toggle" aria-expanded="false" aria-label="Подробнее">
+                    <span class="cookie-toggle-text cookie-toggle-show">подробнее</span>
+                    <span class="cookie-toggle-text cookie-toggle-hide">свернуть</span>
+                </button>
+            </div>
+            <div class="cookie-banner__body" id="cookie-body" hidden>
+                <p>Данный сайт использует cookies для полноценной работы. Вам нужно принять это, либо покинуть сайт. Сайт использует технологию cookie. Вы можете отказаться от использования cookie, выбрав соответствующие настройки в браузере. Используя сайт, вы даете согласие на обработку персональных данных и сбор метаданных. Политика в отношении обработки и защиты персональных данных.</p>
+            </div>
+            <div class="cookie-banner__footer">
+                <button type="button" id="cookie-accept" class="btn btn-cookie">Я согласен</button>
+            </div>
+        </div>
+
         <!-- js -->
+        <script>
+            const API_BASE = '/33teeth/php/api/';
+        </script>
         <script src = "js/script.js"></script>
 
         <script>
-            
+            // динамический год в подвале
+            document.getElementById('footer-year').textContent = new Date().getFullYear();
         </script>
 
-        <script>
-        function checkEmail() {
-            let email = document.querySelector('#emailField').value;
-            if (!email.includes("@")) alert('Нет символа @');
-            else if (!email.includes(".")) alert('Нет символа .');
-            else alert('все топ!')
-        }
-    </script>
     </body>
 </html>

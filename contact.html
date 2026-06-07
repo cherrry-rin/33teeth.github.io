@@ -1,24 +1,76 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>33 зуб</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- font awesome cdn -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <!-- fonts -->
-        <link rel = "stylesheet" href = "font/fonts.css">
-        <!-- normalize css -->
-        <link rel = "stylesheet" href = "css/normalize.css">
-        <!-- custom css -->
-        <link rel = "stylesheet" href = "css/utility.css">
-        <link rel = "stylesheet" href = "css/style.css">
-        <link rel = "stylesheet" href = "css/responsive.css">
-    </head>
-    <body>
-        <!-- navbar  -->
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Контакты — 33 зуб</title>
+            <meta name="description" content="Контакты стоматологической клиники «33 зуб» в Владимире. Телефон, адрес, схема проезда. Запись на приём онлайн.">
+            <!-- font awesome cdn -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <!-- imask.js (input mask) -->
+            <script src="https://unpkg.com/imask"></script>
+            <!-- fonts -->
+            <link rel="stylesheet" href="font/fonts.css">
+            <!-- normalize css -->
+            <link rel="stylesheet" href="css/normalize.css">
+            <!-- custom css -->
+            <link rel="stylesheet" href="css/utility.css">
+            <link rel="stylesheet" href="css/style.css">
+            <link rel="stylesheet" href="css/responsive.css">
+        </head>
+        <body lang="ru">
+<!-- модальное окно записи на приём -->
+        <div id="appointment-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div class="modal-content">
+                <button type="button" id="modal-close" class="modal-close" aria-label="Закрыть окно">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="modal-header">
+                    <h2 id="modal-title">Записаться на приём</h2>
+                    <p>Заполните форму и мы свяжемся с вами для подтверждения</p>
+                </div>
+                <form id="appointmentForm" class="modal-form" novalidate>
+                    <div class="form-group">
+                        <label for="appointment-name">Ваше имя <span class="required">*</span></label>
+                        <input type="text" id="appointment-name" name="name" class="form-control" placeholder="Иванов Иван Иванович" required>
+                        <span class="form-error" id="error-name"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-phone">Телефон <span class="required">*</span></label>
+                        <input type="tel" id="appointment-phone" name="phone" class="form-control imask-phone" placeholder="+7 (___) ___-__-__" required>
+                        <span class="form-error" id="error-phone"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-email">Email <span class="required">*</span></label>
+                        <input type="email" id="appointment-email" name="email" class="form-control" placeholder="введите почту" required>
+                        <span class="form-error" id="error-email"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-service">Выберите услугу <span class="required">*</span></label>
+                        <select id="appointment-service" name="service" class="form-control form-select" required>
+                            <option value="">— Выберите услугу —</option>
+                        </select>
+                        <span class="form-error" id="error-service"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-message">Сообщение</label>
+                        <textarea id="appointment-message" name="message" class="form-control" rows="3" placeholder="Опишите вашу проблему..."></textarea>
+                    </div>
+                    <div class="form-group form-consent">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="appointment-consent" name="consent" class="form-checkbox" required>
+                            <span>Я даю согласие на <a href="privacy.html" target="_blank" rel="noopener noreferrer">обработку персональных данных</a></span>
+                        </label>
+                        <span class="form-error" id="error-consent"></span>
+                    </div>
+                    <button type="submit" class="btn btn-appointment" id="submitAppointment">Отправить заявку</button>
+                </form>
+            </div>
+        </div>
+        <!-- конец модального окна записи -->
+
+        <!-- navbar -->
                 <nav class = "navbar">
             <div class = "container flex">
                 <a href = "index.html" class = "site-brand">
@@ -63,48 +115,57 @@
         <!-- header -->
 
         <!-- contact section -->
-        <section id = "contact" class = "py-4">
-            <div class = "container">
-                <div class = "title-wrap">
-                    <span class = "sm-title">свяжитесь с нами</span>
-                    <h2 class = "lg-title">наши контакты</h2>
+        <section id="contact" class="py-4">
+            <div class="container">
+                <div class="title-wrap">
+                    <span class="sm-title">Свяжитесь с нами</span>
+                    <h2 class="lg-title">Наши контакты</h2>
                 </div>
 
-                <div class = "contact-row">
-                    <div class = "contact-left">
-                        <form class = "contact-form">
-                            <input type = "text" class = "form-control" placeholder="Ваше имя">
-                            <input type = "email" class = "form-control" onclick="checkEmail" placeholder="Email">
-                            <textarea rows = "4" class = "form-control" placeholder="Сообщение" style = "resize: none;"></textarea>
-                            <input type = "submit" class = "btn" value = "Отправить сообщение">
-                        </form>
+                <div class="contact-row">
+                    <div class="contact-left">
+                        <!-- карта Google Maps -->
+                        <div class="google-map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2246.4356480601023!2d40.35340609678954!3d56.135030799999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x414c7957417172bf%3A0x50b09ac7070017ce!2z0KHRgtC-0LzQsNGC0L7Qu9C-0LPQuNGP!5e1!3m2!1sru!2sru!4v1779305134194!5m2!1sru!2sru" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <!-- конец карты -->
                     </div>
-                    <div class = "contact-right my-2">
-                        <div class = "contact-item">
-                            <span class = "contact-icon flex">
-                                <i class = "fa fa-phone-alt"></i>
+                    <div class="contact-right">
+                        <div class="contact-item">
+                            <span class="contact-icon flex">
+                                <i class="fa fa-phone-alt"></i>
                             </span>
                             <div>
                                 <span>Телефон</span>
-                                <p class = "text">+7 (4922) 33-71-00</p>
+                                <p class="text"><a href="tel:+74923337100">+7 (4922) 33-71-00</a></p>
                             </div>
                         </div>
-                        <div class = "contact-item">
-                            <span class = "contact-icon flex">
-                                <i class = "fa fa-map-marked-alt"></i>
+                        <div class="contact-item">
+                            <span class="contact-icon flex">
+                                <i class="fa fa-map-marked-alt"></i>
                             </span>
                             <div>
                                 <span>Адрес</span>
-                                <p class = "text">г. Владимир, пр-т Строителей, 44Б, 600028</p>
+                                <p class="text">г. Владимир, пр-т Строителей, 44Б, 600028</p>
                             </div>
                         </div>
-                        <div class = "contact-item">
-                            <span class = "contact-icon flex">
-                                <i class = "fa fa-envelope"></i>
+                        <div class="contact-item">
+                            <span class="contact-icon flex">
+                                <i class="fa fa-envelope"></i>
                             </span>
                             <div>
                                 <span>Почта</span>
-                                <p class = "text">s3164.stomatlg.ru</p>
+                                <p class="text"><a href="mailto:zub.stomatolog.33@yandex.ru">zub.stomatolog.33@yandex.ru</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon flex">
+                                <i class="far fa-clock"></i>
+                            </span>
+                            <div>
+                                <span>Режим работы</span>
+                                <p class="text">Пн–Сб: с 9:00 до 16:00, Вс: выходной</p>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -112,70 +173,203 @@
             </div>
         </section>
         <!-- end of contact section -->
+
+        <!-- contact form section -->
+        <section id="contact-form-section" class="py-4">
+            <div class="container">
+                <div class="title-wrap">
+                    <span class="sm-title">Форма обратной связи</span>
+                    <h2 class="lg-title">Свяжитесь с нами!</h2>
+                </div>
+                <div class="contact-form-wrapper">
+                    <div class="contact-form-card-header">
+                        <i class="far fa-envelope" aria-hidden="true"></i>
+                        <p>Оставьте ваше сообщение и мы ответим вам как можно скорее</p>
+                    </div>
+                    <form class="contact-form" id="contactForm" novalidate>
+                        <div class="contact-form-stack">
+                            <div class="form-group">
+                                <label for="contact-name">Ваше имя <span class="required">*</span></label>
+                                <input type="text" id="contact-name" name="name" class="form-control" placeholder="Иван Иванов" required>
+                                <span class="form-error" id="error-contact-name"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-phone">Телефон <span class="required">*</span></label>
+                                <input type="tel" id="contact-phone" name="phone" class="form-control imask-phone" placeholder="+7 (___) ___-__-__" required>
+                                <span class="form-error" id="error-contact-phone"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-email">Email <span class="required">*</span></label>
+                                <input type="email" id="contact-email" name="email" class="form-control" placeholder="введите почту" required>
+                                <span class="form-error" id="error-contact-email"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-message">Сообщение <span class="required">*</span></label>
+                                <textarea id="contact-message" name="message" class="form-control" rows="4" placeholder="Опишите, что вас интересует..." required></textarea>
+                                <span class="form-error" id="error-contact-message"></span>
+                            </div>
+                            <div class="form-group form-consent">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="contact-consent" name="consent" class="form-checkbox" required>
+                                    <span>Я даю согласие на обработку<a href="privacy.html" target="_blank" rel="noopener noreferrer"> персональных данных</a></span>
+                                </label>
+                                <span class="form-error" id="error-contact-consent"></span>
+                            </div>
+                            <div class="form-group form-submit">
+                                <input type="submit" class="btn" value="Отправить сообщение">
+                                <p class="form-submit-status" id="contact-success">Спасибо! Мы свяжемся с вами в ближайшее время.</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <!-- end of contact form section -->
         
 
         <!-- footer -->
-        <footer class = "py-4">
-            <div class = "container footer-row">
-                <div class = "footer-item">
-                    <a href = "index.html" class = "site-brand">
+        <footer class="py-4">
+            <div class="container footer-row">
+
+                <!-- Блок 1: бренд -->
+                <div class="footer-item">
+                    <a href="index.html" class="site-brand">
                         33<span>зуб</span>
                     </a>
-                    <p class = "text">ООО «33зуб» — частная стоматологическая клиника с современным оборудованием, дружелюбной командой и индивидуальным подходом. Мы помогаем сохранить здоровье зубов и вернуть уверенность в улыбке — без боли, страха и навязчивых продаж.</p>
+                    <p class="text">ООО «33зуб» — частная стоматологическая клиника с современным оборудованием, дружелюбной командой и индивидуальным подходом.</p>
                 </div>
 
-                <div class = "footer-item">
-                    <h2>Подпишитесь на нас: </h2>
-                    <ul class = "social-links">
-                        <li>
-                            <a href = "#">
-                                <i class = "fab fa-facebook-f"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href = "#">
-                                <i class = "fab fa-twitter"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href = "#">
-                                <i class = "fab fa-pinterest"></i>
-                            </a>
-                        </li>
-                    </ul>
+                <!-- Блок 2: график работы -->
+                <div class="footer-item footer-item--working-hours">
+                    <h3>График работы</h3>
+                    <p class="text"><i class="far fa-clock" aria-hidden="true"></i> Пн–Сб с 9:00 до 16:00, Вс: выходной</p>
+                    <p class="footer-phone-note">Подробная информация по телефону:</p>
+                    <p class="footer-phone-value"><a href="tel:+74923337100">+7 (4922) 33-71-00</a></p>
+                    <button type="button" class="btn btn-footer-appointment" id="openAppointmentModalFooter">Записаться</button>
                 </div>
-
-                <div class = "footer-item">
-                    <h2>Популярные услуги:</h2>
-                    <ul>
-                        <li><a href = "#">Пломбирование</a></li>
-                        <li><a href = "#">Рестоврация</a></li>
-                        <li><a href = "#">Протезирование</a></li>
-                        <li><a href = "#">Чистка </a></li>
-                        <li><a href = "#">Осмотр</a></li>
-                    </ul>
-                </div>
-
-                <div class = "subscribe-form footer-item">
-                    <h2>Подпишитесь на рассылку!</h2>
-                    <form class = "flex">
-                        <input type = "email" placeholder="Enter email address" class = "form-control" id="emailField">
-                        <input type = "submit" class = "btn" value = "Подписаться" onclick="checkEmail()">
+                <!-- Блок 3: подписка -->
+                <div class="subscribe-form footer-item">
+                    <h3>Подпишитесь на рассылку</h3>
+                    <form class="flex" id="newsletterFormFooter">
+                        <input type="email" placeholder="Введите email" class="form-control" id="emailField" aria-label="Email для подписки">
+                        <input type="submit" class="btn" value="Подписаться">
                     </form>
+                    <div id="newsletter-success" class="newsletter-msg newsletter-msg--success"></div>
+                    <div id="newsletter-error" class="newsletter-msg newsletter-msg--error"></div>
+                    <div class="consent-form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="newsletter-consent" class="form-checkbox" required>
+                            <span>Я даю согласие на <a href="privacy.html" target="_blank" rel="noopener noreferrer">обработку персональных данных</a></span>
+                        </label>
+                    </div>
+                </div>
+                <!-- Блок 4: администратор -->
+                <div class="footer-item footer-admin-link">
+                    <h3>Администратор</h3>
+                    <a href="admin/login.php" class="admin-login-link" aria-label="Вход в панель администратора">
+                        <i class="fas fa-user-shield" aria-hidden="true"></i> Вход в панель администратора
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <div class="container">
+                    <p class="text">&copy; <span id="footer-year"></span> ООО «33зуб». Все права защищены.</p>
                 </div>
             </div>
         </footer>
         <!-- end of footer -->
 
+        <!-- всплывающее уведомление о cookie -->
+        <div id="cookie-banner" class="cookie-banner collapsed" role="region" aria-label="Уведомление об использовании cookies">
+            <div class="cookie-banner__header">
+                <strong>Сайт использует cookie</strong>
+                <button type="button" id="cookie-toggle" class="btn btn-cookie-toggle" aria-expanded="false" aria-label="Подробнее">
+                    <span class="cookie-toggle-text cookie-toggle-show">подробнее</span>
+                    <span class="cookie-toggle-text cookie-toggle-hide">свернуть</span>
+                </button>
+            </div>
+            <div class="cookie-banner__body" id="cookie-body" hidden>
+                <p>Данный сайт использует cookies для полноценной работы. Вам нужно принять это, либо покинуть сайт. Сайт использует технологию cookie. Вы можете отказаться от использования cookie, выбрав соответствующие настройки в браузере. Используя сайт, вы даете согласие на обработку персональных данных и сбор метаданных. Политика в отношении обработки и защиты персональных данных.</p>
+            </div>
+            <div class="cookie-banner__footer">
+                <button type="button" id="cookie-accept" class="btn btn-cookie">Я согласен</button>
+            </div>
+        </div>
+
         <!-- js -->
+        <script>
+            const API_BASE = '/33teeth/php/api/';
+        </script>
         <script src = "js/script.js"></script>
         <script>
-        function checkEmail() {
-            let email = document.querySelector('#emailForm').value;
-            if (!form.includes("@")) alert('Нет символа @');
-            else if (!form.includes(".")) alert('Нет символа .');
-            else alert('все топ!')
-        }
-    </script>
+            // динамический год в подвале
+            document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+            // ── маска для поля телефона ──
+            var phoneInput = document.getElementById('contact-phone');
+            if (phoneInput && typeof IMask !== 'undefined') {
+                IMask(phoneInput, {
+                    mask: '+{7} (000) 000-00-00',
+                    lazy: false
+                });
+            }
+
+            // Отправка формы обратной связи на странице «Контакты»
+            document.getElementById('contactForm') &&
+            document.getElementById('contactForm').addEventListener('submit', async function (e) {
+                e.preventDefault();
+                var submitBtn = this.querySelector('[type="submit"]');
+                var name      = document.getElementById('contact-name').value.trim();
+                var phone     = document.getElementById('contact-phone').value.trim();
+                var email     = document.getElementById('contact-email').value.trim();
+                var msg       = document.getElementById('contact-message').value.trim();
+                var consent   = document.getElementById('contact-consent').checked;
+
+                // Валидация email
+                var emailError = '';
+                if (!email) {
+                    emailError = 'Обязательное поле';
+                } else if (!email.includes('@')) {
+                    emailError = 'Введите корректный email (отсутствует @)';
+                } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+                    emailError = 'Email должен быть на латинице';
+                }
+
+                // Базовая валидация
+                document.getElementById('error-contact-name').textContent    = name     ? '' : 'Поле обязательное';
+                document.getElementById('error-contact-phone').textContent   = phone    ? '' : 'Поле обязательное';
+                document.getElementById('error-contact-email').textContent   = emailError;
+                document.getElementById('error-contact-message').textContent = msg      ? '' : 'Поле обязательное';
+                document.getElementById('error-contact-consent').textContent = consent  ? '' : 'Требуется согласие';
+
+                if (!name || !phone || emailError || !msg || !consent) { return; }
+
+                submitBtn.disabled = true;
+                submitBtn.value    = 'Отправка...';
+
+                try {
+                    var resp = await fetch('php/api/feedback.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name: name, phone: phone, email: email, message: msg })
+                    });
+
+                    if (resp.ok) {
+                        this.reset();
+                        showSuccessPopup('Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.');
+                    } else {
+                        alert('Ошибка при отправке. Попробуйте позже.');
+                    }
+                } catch (err) {
+                    console.error('Ошибка отправки:', err);
+                    alert('Ошибка сети. Проверьте подключение.');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.value    = 'Отправить сообщение';
+                }
+            });
+        </script>
     </body>
 </html>

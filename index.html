@@ -1,64 +1,139 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
     <head>
-        <meta charset="utf-8">
+        <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>33 зуб</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>33 зуб — Стоматологическая клиника</title>
+        <meta name="description" content="Стоматологические услуги от опытных специалистов в клинике «33 зуб». Запись на приём, лечение зубов, отбеливание, протезирование.">
+        <meta name="keywords" content="стоматолог, лечение зубов, пломбирование, отбеливание, протезирование, Владимир">
+        <!-- Open Graph -->
+        <meta property="og:title" content="33 зуб — Стоматологическая клиника">
+        <meta property="og:description" content="Считаем зубы, дарим улыбки! Запишитесь на приём онлайн.">
+        <meta property="og:image" content="images/header-bg.jpg">
         <!-- font awesome cdn -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- imask.js (input mask) -->
+        <script src="https://unpkg.com/imask"></script>
         <!-- fonts -->
-        <link rel = "stylesheet" href = "font/fonts.css">
+        <link rel="stylesheet" href="font/fonts.css">
         <!-- normalize css -->
-        <link rel = "stylesheet" href = "css/normalize.css">
+        <link rel="stylesheet" href="css/normalize.css">
         <!-- custom css -->
-        <link rel = "stylesheet" href = "css/utility.css">
-        <link rel = "stylesheet" href = "css/style.css">
-        <link rel = "stylesheet" href = "css/responsive.css">
+        <link rel="stylesheet" href="css/utility.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/responsive.css">
     </head>
     <body>
-        <!-- navbar  -->
-        <nav class = "navbar">
-            <div class = "container flex">
-                <a href = "index.html" class = "site-brand">
+
+        <!-- модальное окно записи на приём -->
+        <div id="appointment-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div class="modal-content">
+                <button type="button" id="modal-close" class="modal-close" aria-label="Закрыть окно">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="modal-header">
+                    <h2 id="modal-title">Записаться на приём</h2>
+                    <p>Заполните форму и мы свяжемся с вами для подтверждения</p>
+                </div>
+                <form id="appointmentForm" class="modal-form" novalidate>
+                    <div class="form-group">
+                        <label for="appointment-name">Ваше имя <span class="required">*</span></label>
+                        <input type="text" id="appointment-name" name="name" class="form-control" placeholder="Иванов Иван Иванович" required>
+                        <span class="form-error" id="error-name"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-phone">Телефон <span class="required">*</span></label>
+                        <input type="tel" id="appointment-phone" name="phone" class="form-control imask-phone" placeholder="+7 (___) ___-__-__" required>
+                        <span class="form-error" id="error-phone"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-email">Email <span class="required">*</span></label>
+                        <input type="email" id="appointment-email" name="email" class="form-control" placeholder="введите почту" required>
+                        <span class="form-error" id="error-email"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-service">Выберите услугу <span class="required">*</span></label>
+                        <select id="appointment-service" name="service" class="form-control form-select" required>
+                            <option value="">— Выберите услугу —</option>
+                        </select>
+                        <span class="form-error" id="error-service"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-message">Сообщение</label>
+                        <textarea id="appointment-message" name="message" class="form-control" rows="3" placeholder="Опишите вашу проблему..."></textarea>
+                    </div>
+                    <div class="form-group form-consent">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="appointment-consent" name="consent" class="form-checkbox" required>
+                            <span>Я даю согласие на <a href="privacy.html" target="_blank" rel="noopener noreferrer">обработку персональных данных</a></span>
+                        </label>
+                        <span class="form-error" id="error-consent"></span>
+                    </div>
+                    <button type="submit" class="btn btn-appointment" id="submitAppointment">Отправить заявку</button>
+                    <p class="form-success" id="appointment-success">Мы свяжемся с вами в ближайшее время!</p>
+                </form>
+            </div>
+        </div>
+        <!-- конец модального окна записи -->
+
+        <!-- всплывающее окно для первого посещения (акция 10%) -->
+        <div id="promo-popup" class="promo-overlay" role="dialog" aria-modal="true" aria-labelledby="promo-title">
+            <div class="promo-content">
+                <button type="button" id="promo-close" class="modal-close modal-close--light" aria-label="Закрыть акцию">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="promo-badge">Акция!</div>
+                <h2 id="promo-title">Скидка на первую запись 10%</h2>
+                <p>Только для новых пациентов. Запишитесь на приём и получите скидку!</p>
+                <button type="button" class="btn btn-promo" id="promo-to-appointment">Записаться</button>
+            </div>
+        </div>
+        <!-- конец всплывающего окна промо -->
+
+        <!-- navbar -->
+        <nav class="navbar">
+            <div class="container flex">
+                <a href="index.html" class="site-brand" aria-label="33 зуб — на главную">
                     33<span>зуб</span>
                 </a>
-
-                <button type = "button" id = "navbar-show-btn" class = "flex">
-                    <i class = "fas fa-bars"></i>
+                <button type="button" id="navbar-show-btn" class="flex" aria-label="Открыть меню">
+                    <i class="fas fa-bars"></i>
                 </button>
-                <div id = "navbar-collapse">
-                    <button type = "button" id = "navbar-close-btn" class = "flex">
-                        <i class = "fas fa-times"></i>
+                <div id="navbar-collapse">
+                    <button type="button" id="navbar-close-btn" class="flex" aria-label="Закрыть меню">
+                        <i class="fas fa-times"></i>
                     </button>
-                    <ul class = "navbar-nav">
-                        <li class = "nav-item">
-                            <a href = "index.html" class = "nav-link">Главная</a>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link">Главная</a>
                         </li>
-                        <li class = "nav-item">
-                            <a href = "gallery.html" class = "nav-link">Услуги</a>
+                        <li class="nav-item">
+                            <a href="gallery.html" class="nav-link">Услуги</a>
                         </li>
-                        <li class = "nav-item">
-                            <a href = "about.html" class = "nav-link">О нас</a>
+                        <li class="nav-item">
+                            <a href="about.html" class="nav-link">О нас</a>
                         </li>
-                        <li class = "nav-item">
-                            <a href = "contact.html" class = "nav-link">Контакты</a>
+                        <li class="nav-item">
+                            <a href="contact.html" class="nav-link">Контакты</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <!-- end of navbar  -->
+        <!-- end of navbar -->
 
-        <!-- header -->
-        <header class = "flex">
-            <div class = "container">
-                <div class = "header-title">
+        <!-- header / hero section -->
+        <header class="flex">
+            <div class="container">
+                <div class="header-title">
                     <h1>Считаем зубы, дарим улыбки!</h1>
-                    <p>Cтоматологические услуги от опытных специалистов.</p>
+                    <p>Стоматологические услуги от опытных специалистов.</p>
+                    <button type="button" class="btn btn-appointment" id="openAppointmentModal">Записаться</button>
+                </div>
+            </div>
         </header>
-        <!-- header -->
+        <!-- end of header -->
 
         <!-- featured section -->
         <section id = "featured" class = "py-4">
@@ -70,7 +145,7 @@
 
                 <div class = "featured-row">
                     <div class = "featured-item my-2 shadow">
-                        <img src = "images/замена пломбы.jpg" alt = "featured place">
+                        <img src = "images/замена пломбы.jpg" alt = "Замена пломбы">
                         <div class = "featured-item-content">
                             <span>
                                 Замена пломбы
@@ -82,7 +157,7 @@
                     </div>
                     
                     <div class = "featured-item my-2 shadow">
-                        <img src = "images/ультразвуковая чистка.jpg" alt = "featured place">
+                        <img src = "images/ультразвуковая чистка.jpg" alt = "Ультразвуковая чистка зубов">
                         <div class = "featured-item-content">
                             <span>
                                 Ультразвуковая чистка
@@ -94,7 +169,7 @@
                     </div>
 
                     <div class = "featured-item my-2 shadow">
-                        <img src = "images/первичный осмотр.jpg" alt = "featured place">
+                        <img src = "images/первичный осмотр.jpg" alt = "Первичный осмотр у стоматолога">
                         <div class = "featured-item-content">
                             <span>
                                 Первичный осмотр
@@ -106,7 +181,7 @@
                     </div>
 
                     <div class = "featured-item my-2 shadow">
-                        <img src = "images/ортопедическое изделие.jpg" alt = "featured place">
+                        <img src = "images/ортопедическое изделие.jpg" alt = "Установка ортопедического изделия">
                         <div class = "featured-item-content">
                             <span>
                                 Установка ортопедического изделия
@@ -118,7 +193,7 @@
                     </div>
 
                     <div class = "featured-item my-2 shadow">
-                        <img src = "images/мост.jpg" alt = "featured place">
+                        <img src = "images/мост.jpg" alt = "Установка мостовидного протеза">
                         <div class = "featured-item-content">
                             <span>
                                 Установка мостовидного протеза
@@ -130,7 +205,7 @@
                     </div>
 
                     <div class = "featured-item my-2 shadow">
-                        <img src = "images/реставрация.jpg" alt = "featured place">
+                        <img src = "images/реставрация.jpg" alt = "Эстетическая реставрация зуба">
                         <div class = "featured-item-content">
                             <span>
                                 Эстетическая рестоврация зуба
@@ -146,72 +221,75 @@
         <!-- end of featured section -->
 
         <!-- services section -->
-        <section id = "services" class = "py-4">
-            <div class = "container">
-                <div class = "title-wrap">
-                    <span class = "sm-title">узнайте об услугах, которыее мы предлагаем</span>
-                    <h2 class = "lg-title">Наш сервис</h2>
+        <section id="services" class="py-4">
+            <div class="container">
+                <div class="title-wrap">
+                    <span class="sm-title">Узнайте об услугах, которые мы предлагаем</span>
+                    <h2 class="lg-title">Наш сервис</h2>
                 </div>
 
-                <div class = "services-row">
-                    <div class = "services-item">
-                        <span class = "services-icon">
-                            <i class = "fas fa-hotel"></i>
+                <div class="services-row">
+                    <div class="services-item">
+                        <span class="services-icon">
+                            <i class="fas fa-stethoscope"></i>
                         </span>
-                        <h3>Современная больница</h3>
+                        <h3>Современное оборудование</h3>
+                        <p class="text">Современные технологии и современная больница для диагностики</p>
                     </div>
 
-                    <div class = "services-item">
-                        <span class = "services-icon">
-                            <i class = "fas fa-map-marked-alt"></i>
+                    <div class="services-item">
+                        <span class="services-icon">
+                            <i class="fas fa-map-marked-alt"></i>
                         </span>
                         <h3>Удобное местоположение</h3>
+                        <p class="text">Клиника расположена в центре Владимира — легко добраться на любом транспорте</p>
                     </div>
 
-                    <div class = "services-item">
-                        <span class = "services-icon">
-                            <i class = "fas fa-money-bill"></i>
+                    <div class="services-item">
+                        <span class="services-icon">
+                            <i class="fas fa-wallet"></i>
                         </span>
                         <h3>Приятная цена</h3>
-                        </div>
+                        <p class="text">Адекватные цены, прозрачная цена без скрытых доплат на все виды услуг</p>
+                    </div>
                 </div>
             </div>
         </section>
         <!-- end of services section -->
 
         <!-- testimonials section -->
-        <section id = "testimonials" class = "py-4">
-            <div class = "container">
-                <div class = "title-wrap">
-                    <span class = "sm-title">что говорят о нас наши пациенты</span>
-                    <h2 class = "lg-title">Отзывы</h2>
+        <section id="testimonials" class="py-4">
+            <div class="container">
+                <div class="title-wrap">
+                    <span class="sm-title">Что говорят о нас наши пациенты</span>
+                    <h2 class="lg-title">Отзывы</h2>
                 </div>
 
-                <div class = "test-row">
-                    <div class = "test-item">
-                        <p class = "text">Долго боялся идти к стоматологу, но в «33зуб» всё прошло спокойно и без боли. Врач подробно всё объяснил, а администратор подобрала удобное время — теперь только сюда!</p>
-                        <div class = "test-item-info">
-                            <img src = "images/test-1.jpg" alt = "testimonial">
+                <div class="test-row">
+                    <div class="test-item">
+                        <p class="text">Долго боялся идти к стоматологу, но в «33зуб» всё прошло спокойно и без боли. Врач подробно всё объяснил, а администратор подобрала удобное время — теперь только сюда!</p>
+                        <div class="test-item-info">
+                            <img src="images/test-1.jpg" alt="Николай Воронов">
                             <div>
                                 <h3>Николай Воронов</h3>
                             </div>
                         </div>
                     </div>
 
-                    <div class = "test-item">
-                        <p class = "text">Поставил мост — идеально подогнали, ни малейшего дискомфорта. Цены адекватные, всё прозрачно, без скрытых доплат. Рекомендую как надёжную и профессиональную клинику.</p>
-                        <div class = "test-item-info">
-                            <img src = "images/test-2.jpg" alt = "testimonial">
+                    <div class="test-item">
+                        <p class="text">Поставил мост — идеально подогнали, ни малейшего дискомфорта. Цены адекватные, всё прозрачно, без скрытых доплат. Рекомендую как надёжную и профессиональную клинику.</p>
+                        <div class="test-item-info">
+                            <img src="images/test-2.jpg" alt="Алексей Миронов">
                             <div>
                                 <h3>Алексей Миронов</h3>
                             </div>
                         </div>
                     </div>
 
-                    <div class = "test-item">
-                        <p class = "text">Очень довольна качеством реставрации — зуб выглядит абсолютно натурально! Персонал вежливый, клиника чистая, никакой «больничной» атмосферы. Спасибо за заботу!</p>
-                        <div class = "test-item-info">
-                            <img src = "images/test-3.jpg" alt = "testimonial">
+                    <div class="test-item">
+                        <p class="text">Очень довольна качеством реставрации — зуб выглядит абсолютно натурально! Персонал вежливый, клиника чистая, никакой «больничной» атмосферы. Спасибо за заботу!</p>
+                        <div class="test-item-info">
+                            <img src="images/test-3.jpg" alt="Мария Шевченко">
                             <div>
                                 <h3>Мария Шевченко</h3>
                             </div>
@@ -222,7 +300,7 @@
         </section>
         <!-- end of testimonials section -->
 
-        <!-- video section -->
+       <!-- video section -->
         <section id = "video">
             <div class = "video-wrapper flex">
                 <video loop>
@@ -236,79 +314,85 @@
         <!-- end of video section -->
 
         <!-- footer -->
-        <footer class = "py-4">
-            <div class = "container footer-row">
-                <div class = "footer-item">
-                    <a href = "index.html" class = "site-brand">
+        <footer class="py-4">
+            <div class="container footer-row">
+
+                <!-- Блок 1: бренд -->
+                <div class="footer-item">
+                    <a href="index.html" class="site-brand">
                         33<span>зуб</span>
                     </a>
-                    <p class = "text">ООО «33зуб» — частная стоматологическая клиника с современным оборудованием, дружелюбной командой и индивидуальным подходом. Мы помогаем сохранить здоровье зубов и вернуть уверенность в улыбке — без боли, страха и навязчивых продаж.</p>
+                    <p class="text">ООО «33зуб» — частная стоматологическая клиника с современным оборудованием, дружелюбной командой и индивидуальным подходом.</p>
                 </div>
 
-                <div class = "footer-item">
-                    <h2>Подпишитесь на нас: </h2>
-                    <ul class = "social-links">
-                        <li>
-                            <a href = "#">
-                                <i class = "fab fa-facebook-f"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href = "#">
-                                <i class = "fab fa-twitter"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href = "#">
-                                <i class = "fab fa-pinterest"></i>
-                            </a>
-                        </li>
-                    </ul>
+                <!-- Блок 2: график работы -->
+                <div class="footer-item footer-item--working-hours">
+                    <h3>График работы</h3>
+                    <p class="text"><i class="far fa-clock" aria-hidden="true"></i> Пн–Сб с 9:00 до 16:00, Вс: выходной</p>
+                    <p class="footer-phone-note">Подробная информация по телефону:</p>
+                    <p class="footer-phone-value"><a href="tel:+74923337100">+7 (4922) 33-71-00</a></p>
+                    <button type="button" class="btn btn-footer-appointment" id="openAppointmentModalFooter">Записаться</button>
                 </div>
-
-                <div class = "footer-item">
-                    <h2>Популярные услуги:</h2>
-                    <ul>
-                        <li><a href = "#">Пломбирование</a></li>
-                        <li><a href = "#">Рестоврация</a></li>
-                        <li><a href = "#">Протезирование</a></li>
-                        <li><a href = "#">Чистка </a></li>
-                        <li><a href = "#">Осмотр</a></li>
-                    </ul>
-                </div>
-
-                <div class = "subscribe-form footer-item">
-                    <h2>Подпишитесь на рассылку!</h2>
-                    <form class = "flex">
-                        <input type = "email" placeholder="Enter email address" class = "form-control" id="emailField">
-                        <input type = "submit" class = "btn" value = "Подписаться" onclick="checkEmail()">
+                <!-- Блок 3: подписка -->
+                <div class="subscribe-form footer-item">
+                    <h3>Подпишитесь на рассылку</h3>
+                    <form class="flex" id="newsletterFormFooter">
+                        <input type="email" placeholder="Введите email" class="form-control" id="emailField" aria-label="Email для подписки">
+                        <input type="submit" class="btn" value="Подписаться">
                     </form>
+                    <div id="newsletter-success" class="newsletter-msg newsletter-msg--success"></div>
+                    <div id="newsletter-error" class="newsletter-msg newsletter-msg--error"></div>
+                    <div class="consent-form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="newsletter-consent" class="form-checkbox" required>
+                            <span>Я даю согласие на <a href="privacy.html" target="_blank" rel="noopener noreferrer">обработку персональных данных</a></span>
+                        </label>
+                    </div>
+                </div>
+                <!-- Блок 4: администратор -->
+                <div class="footer-item footer-admin-link">
+                    <h3>Администратор</h3>
+                    <a href="admin/login.php" class="admin-login-link" aria-label="Вход в панель администратора">
+                        <i class="fas fa-user-shield" aria-hidden="true"></i> Вход в панель администратора
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <div class="container">
+                    <p class="text">&copy; <span id="footer-year"></span> ООО «33зуб». Все права защищены.</p>
                 </div>
             </div>
         </footer>
         <!-- end of footer -->
 
-        <!-- js -->
-        <script src = "js/script.js"></script>
-        <script>
-            // play/pause video
-            let video = document.querySelector('.video-wrapper video');
-            document.getElementById('play-btn').addEventListener('click', () => {
-                if(video.paused){
-                    video.play();
-                } else {
-                    video.pause();
-                }
-            });
-        </script>
+        <!-- всплывающее уведомление о cookie -->
+        <div id="cookie-banner" class="cookie-banner collapsed" role="region" aria-label="Уведомление об использовании cookies">
+            <div class="cookie-banner__header">
+                <strong>Сайт использует cookie</strong>
+                <button type="button" id="cookie-toggle" class="btn btn-cookie-toggle" aria-expanded="false" aria-label="Подробнее">
+                    <span class="cookie-toggle-text cookie-toggle-show">подробнее</span>
+                    <span class="cookie-toggle-text cookie-toggle-hide">свернуть</span>
+                </button>
+            </div>
+            <div class="cookie-banner__body" id="cookie-body" hidden>
+                <p>Данный сайт использует cookies для полноценной работы. Вам нужно принять это, либо покинуть сайт. Сайт использует технологию cookie. Вы можете отказаться от использования cookie, выбрав соответствующие настройки в браузере. Используя сайт, вы даете согласие на обработку персональных данных и сбор метаданных. Политика в отношении обработки и защиты персональных данных.</p>
+            </div>
+            <div class="cookie-banner__footer">
+                <button type="button" id="cookie-accept" class="btn btn-cookie">Я согласен</button>
+            </div>
+        </div>
+        <!-- конец всплывающего уведомления о cookie -->
 
+        <!-- js -->
         <script>
-        function checkEmail() {
-            let email = document.querySelector('#emailField').value;
-            if (!email.includes("@")) alert('Нет символа @');
-            else if (!email.includes(".")) alert('Нет символа .');
-            else alert('все топ!')
-        }
-    </script>
+            const API_BASE = '/33teeth/php/api/';
+        </script>
+        <script src="js/script.js"></script>
+        <script>
+            // динамически проставляем актуальный год в подвале
+            document.getElementById('footer-year').textContent = new Date().getFullYear();
+        </script>
     </body>
 </html>
